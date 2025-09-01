@@ -18,8 +18,6 @@
 #include <Qt>       // for Qt::CaseInsensitive
 #include <QtDebug>  // for qCritical, qDebug
 
-#include <Windows.h>  // for DWORD, HANDLE, INVALID_HANDLE_VALUE
-
 #include <functional>
 
 using namespace MOBase;
