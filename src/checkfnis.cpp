@@ -26,17 +26,17 @@ CheckFNIS::CheckFNIS()
     : m_MOInfo(nullptr), m_Active(false),
       m_MatchExpressions(std::vector<QRegularExpression>{
           // MSVC2013 bug. The (std::vector<QRegExp> shouldn't be necessary
-          QRegularExpression("\\\\FNIS_.*_List\\.txt$",
+          QRegularExpression("/FNIS_.*_List\\.txt$",
                              QRegularExpression::PatternOption::CaseInsensitiveOption),
-          QRegularExpression("\\\\FNIS.*Behavior\\.txt$",
+          QRegularExpression("/FNIS.*Behavior\\.txt$",
                              QRegularExpression::PatternOption::CaseInsensitiveOption),
-          QRegularExpression("\\\\PatchList\\.txt$",
+          QRegularExpression("/PatchList\\.txt$",
                              QRegularExpression::PatternOption::CaseInsensitiveOption),
           QRegularExpression(
-              "\\\\skeleton.*\\.hkx$",
+              "/skeleton.*\\.hkx$",
               QRegularExpression::PatternOption::CaseInsensitiveOption)}),
       m_SensitiveMatchExpressions(std::vector<QRegularExpression>{
-          QRegularExpression("\\\\animations\\\\.*\\.hkx$",
+          QRegularExpression("/animations\\\\.*\\.hkx$",
                              QRegularExpression::PatternOption::CaseInsensitiveOption)})
 {}
 
@@ -149,7 +149,7 @@ void CheckFNIS::findRelevantFilesRecursive(const QString& path,
 
   QStringList subDirectories = m_MOInfo->listDirectories(path);
   foreach (const QString& directory, subDirectories) {
-    findRelevantFilesRecursive(path + "\\" + directory, fileList);
+    findRelevantFilesRecursive(path + "/" + directory, fileList);
   }
 }
 
@@ -157,7 +157,7 @@ QString CheckFNIS::generateIdentifier() const
 {
   QMap<QString, QString> fileList;
 
-  findRelevantFilesRecursive("meshes\\actors", fileList);
+  findRelevantFilesRecursive("meshes/actors", fileList);
 
   QStringList flattenedList;
   for (auto iter = fileList.begin(); iter != fileList.end(); ++iter) {
